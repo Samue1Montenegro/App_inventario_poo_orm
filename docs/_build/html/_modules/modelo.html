@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="es" data-content_root="../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>modelo &mdash; documentación de  App Inventario - 0.0.1</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=19f00094" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../_static/documentation_options.js?v=6fcc102b"></script>
+        <script src="../_static/doctools.js?v=888ff710"></script>
+        <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+        <script src="../_static/translations.js?v=efdbd0b9"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Índice" href="../genindex.html" />
+    <link rel="search" title="Búsqueda" href="../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+             App Inventario
+          </a>
+              <div class="version">
+                0.0.1
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Buscar documentos" aria-label="Buscar documentos" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../base_datos.html">base_datos module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../documentacion_html.html">documentacion_html module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../expresiones_regulares.html">expresiones_regulares module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../main.html">main module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../modelo.html">modelo module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../notificaciones.html">notificaciones module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../temas.html">temas module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../vista.html">vista module</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html"> App Inventario</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="index.html">Código de módulo</a></li>
+      <li class="breadcrumb-item active">modelo</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Código fuente para modelo</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">modelo.py es el modulo en el que se establecen las principales funcionalidades de la aplicacion.\n</span>
+<span class="sd">Al ser una aplicacion CRUD este modulo contiene una clase principal llamada Abmc.\n</span>
+<span class="sd">La Clase Abmc contiene :</span>
+<span class="sd">   :El metodo alta: Agrega productos nuevos</span>
+<span class="sd">   :El metodo borrar: Borra productos existentes</span>
+<span class="sd">   :El metodo modificar_seleccionado: Modifica un producto seleccionado del Treeview</span>
+<span class="sd">   :El metodo realizar_consulta: Realiza una consulta mediante una palabra clave</span>
+<span class="sd">   :El metodo actualizar_treeview: Actualiza el treeview luego de cualquier operacion,</span>
+<span class="sd">        tambien se actualiza manualmente</span>
+
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="c1"># Importa simpledialog para poder lanzar un cuadro de dialogo simple, en este caso para poder modificar datos mediante un campo de entrada.</span>
+<span class="kn">from</span> <span class="nn">tkinter</span> <span class="kn">import</span> <span class="n">simpledialog</span>
+
+<span class="c1"># Se importa la clase Table del modulo BaseDatos</span>
+<span class="kn">from</span> <span class="nn">base_datos</span> <span class="kn">import</span> <span class="n">Table</span>
+
+<span class="c1"># Se importa la clase Regucampos del modulo ExpresionesRegulares</span>
+<span class="kn">from</span> <span class="nn">expresiones_regulares</span> <span class="kn">import</span> <span class="n">ReguCampos</span>
+
+<span class="c1"># Se importa la clase Notificacion del modulo notificaciones</span>
+<span class="kn">from</span> <span class="nn">notificaciones</span> <span class="kn">import</span> <span class="n">Notificacion</span>
+
+<span class="c1"># Se crea objetos instanciando a las clases para utilizarlas</span>
+<span class="n">validacion_alta</span> <span class="o">=</span> <span class="n">ReguCampos</span>
+<span class="n">notificar</span> <span class="o">=</span> <span class="n">Notificacion</span>
+
+<span class="c1"># ----------------------------------------------------------------------------------</span>
+<span class="c1"># ######################      MODELO              ########################</span>
+<span class="c1"># ----------------------------------------------------------------------------------</span>
+
+<span class="c1"># Clase que contiene el CRUD: Alta, Borrar, Modificacion, Consulta</span>
+
+
+<span class="c1"># Definición de la clase Abmc</span>
+<div class="viewcode-block" id="Abmc">
+<a class="viewcode-back" href="../modelo.html#modelo.Abmc">[documentos]</a>
+<span class="k">class</span> <span class="nc">Abmc</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Clase principal del modulo &#39;modulo.py&#39;\n</span>
+<span class="sd">     :Abmc hace referencia al sistema &#39;CRUD&#39;:</span>
+<span class="sd">     - Alta</span>
+<span class="sd">     - Borrar</span>
+<span class="sd">     - Modificacion</span>
+<span class="sd">     - Consulta&quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tree</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">tree</span> <span class="o">=</span> <span class="n">tree</span>
+
+    <span class="c1"># Metodo para dar de alta un producto</span>
+<div class="viewcode-block" id="Abmc.alta">
+<a class="viewcode-back" href="../modelo.html#modelo.Abmc.alta">[documentos]</a>
+    <span class="k">def</span> <span class="nf">alta</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">codigo</span><span class="p">,</span> <span class="n">producto</span><span class="p">,</span> <span class="n">cantidad</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Metodo principal del &#39;CRUD&#39; en el que se designa la creacion de un nuevo producto.\n</span>
+<span class="sd">        :param codigo: Codigo del producto</span>
+<span class="sd">        :type codigo: int</span>
+<span class="sd">        :param producto: Nombre del producto</span>
+<span class="sd">        :type producto: str</span>
+<span class="sd">        :param cantidad: Cantidad del producto</span>
+<span class="sd">        :type cantidad: int</span>
+<span class="sd">        :return Exception: En caso de ocurrir un error se notifica el error.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Se toman los valores de los campos de entrada y se asignan a variables para su manipulación.</span>
+        <span class="n">valor_codigo</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">codigo</span><span class="o">.</span><span class="n">get</span><span class="p">())</span>
+        <span class="n">valor_producto</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">producto</span><span class="o">.</span><span class="n">get</span><span class="p">())</span>
+        <span class="n">valor_cantidad</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">cantidad</span><span class="o">.</span><span class="n">get</span><span class="p">())</span>
+        <span class="nb">print</span><span class="p">(</span>
+            <span class="s2">&quot;campos: &quot;</span><span class="p">,</span> <span class="n">valor_codigo</span><span class="p">,</span> <span class="n">valor_producto</span><span class="p">,</span> <span class="n">valor_cantidad</span>
+        <span class="p">)</span>  <span class="c1"># Impresión en consola para control.</span>
+
+        <span class="k">try</span><span class="p">:</span>
+            <span class="c1"># Se realiza un if para ejecutar el control de caracteres en los campos de entradas.</span>
+            <span class="k">if</span> <span class="n">validacion_alta</span><span class="o">.</span><span class="n">expresion_alta</span><span class="p">(</span>
+                <span class="n">valor_codigo</span><span class="p">,</span> <span class="n">valor_producto</span><span class="p">,</span> <span class="n">valor_cantidad</span>
+            <span class="p">):</span>
+                <span class="c1"># Se crea un control de datos para los campos de entrada Codigo y Cantidad. Se convierten a enteros los valores para no crear conflictos.</span>
+                <span class="k">try</span><span class="p">:</span>
+                    <span class="n">val_codigo</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">valor_codigo</span><span class="p">)</span>
+                    <span class="n">val_cantidad</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">valor_cantidad</span><span class="p">)</span>
+                <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
+                    <span class="c1"># Impresión en consola para control.</span>
+                    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Error: El código y la cantidad deben ser números enteros.&quot;</span><span class="p">)</span>
+                    <span class="k">return</span> <span class="kc">False</span>
+
+                <span class="nb">print</span><span class="p">(</span>
+                    <span class="n">val_codigo</span><span class="p">,</span> <span class="n">valor_producto</span><span class="p">,</span> <span class="n">val_cantidad</span>
+                <span class="p">)</span>  <span class="c1"># Impresión en consola para control.</span>
+
+                <span class="c1"># Se crea un nuevo producto utilizando Peewee</span>
+                <span class="n">nuevo_producto</span> <span class="o">=</span> <span class="n">Table</span><span class="o">.</span><span class="n">create</span><span class="p">(</span>
+                    <span class="n">codigo</span><span class="o">=</span><span class="n">val_codigo</span><span class="p">,</span> <span class="n">producto</span><span class="o">=</span><span class="n">valor_producto</span><span class="p">,</span> <span class="n">cantidad</span><span class="o">=</span><span class="n">val_cantidad</span>
+                <span class="p">)</span>
+                <span class="n">nuevo_producto</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Estoy en alta todo ok&quot;</span><span class="p">)</span>  <span class="c1"># Impresión en consola para control.</span>
+                <span class="c1"># Se llama a la función que actualiza el Treeview</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">actualizar_treeview</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tree</span><span class="p">)</span>
+                <span class="c1"># Se limpian los campos de entrada después que se ejecuta la acción. (Esto puede depender de cómo estén definidas tus variables)</span>
+                <span class="n">codigo</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+                <span class="n">producto</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="s2">&quot;-&quot;</span><span class="p">)</span>
+                <span class="n">cantidad</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+                <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Producto agregado con exito: </span><span class="si">{</span><span class="n">codigo</span><span class="si">}</span><span class="s2">,</span><span class="si">{</span><span class="n">producto</span><span class="si">}</span><span class="s2">,</span><span class="si">{</span><span class="n">cantidad</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span>
+                    <span class="s2">&quot;Error en campos de entrada desde metodo alta de modelo&quot;</span>
+                <span class="p">)</span>  <span class="c1"># Impresión en consola para control.</span>
+
+                <span class="k">return</span> <span class="kc">False</span>
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">a</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Error en control de caracteres: </span><span class="si">{</span><span class="n">a</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span></div>
+
+
+    <span class="c1"># Metodo para eliminar un elemento seleccionándolo en el Treeview.</span>
+<div class="viewcode-block" id="Abmc.borrar">
+<a class="viewcode-back" href="../modelo.html#modelo.Abmc.borrar">[documentos]</a>
+    <span class="k">def</span> <span class="nf">borrar</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Metodo para eliminar un producto seleccionandolo en el &#39;Treeview&#39;\n</span>
+<span class="sd">        :return Exception: En caso de ocurrir un error se notifica el error.&quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+
+            <span class="c1"># Toma los valores seleccionando el producto para eliminarlo completamente con sus valores.</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">valor</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">tree</span><span class="o">.</span><span class="n">selection</span><span class="p">()</span>
+            <span class="nb">print</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">valor</span><span class="p">)</span>  <span class="c1"># Impresión en consola para control.</span>
+
+            <span class="c1"># Para asegurar que se ha seleccionado un producto se crea un condicional.</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="c1"># Obtiene la información de la fila seleccionada y la separa en un diccionario, se le asigna a una variable.</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">item</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">tree</span><span class="o">.</span><span class="n">item</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">valor</span><span class="p">)</span>
+                <span class="nb">print</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">item</span><span class="p">)</span>  <span class="c1"># Impresión por consola para control.</span>
+                <span class="c1">#  Se accede al valor asociado con la clave &quot;text&quot; en el diccionario &#39;item&#39;, es decir, la primera columna del ítem en el Treeview</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">codigo</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">item</span><span class="p">[</span><span class="s2">&quot;text&quot;</span><span class="p">]</span>
+                <span class="nb">print</span><span class="p">(</span>
+                    <span class="s2">&quot;items borrar&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">codigo</span>
+                <span class="p">)</span>  <span class="c1"># Impresión por consola para control.</span>
+
+                <span class="c1"># Busca el producto a eliminar por su código</span>
+                <span class="n">producto_a_eliminar</span> <span class="o">=</span> <span class="n">Table</span><span class="o">.</span><span class="n">get_or_none</span><span class="p">(</span><span class="n">codigo</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">codigo</span><span class="p">)</span>
+
+                <span class="c1"># Verifica si el producto existe antes de intentar eliminarlo</span>
+                <span class="k">try</span><span class="p">:</span>
+                    <span class="c1"># Elimina el producto de la base de datos</span>
+                    <span class="n">producto_a_eliminar</span><span class="o">.</span><span class="n">delete_instance</span><span class="p">()</span>
+
+                    <span class="c1"># Se actualiza el Treeview luego de la acción.</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">actualizar_treeview</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tree</span><span class="p">)</span>
+                <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">a</span><span class="p">:</span>
+                    <span class="c1"># En caso de cualquier error durante la eliminación del producto</span>
+                    <span class="nb">print</span><span class="p">(</span>
+                        <span class="sa">f</span><span class="s2">&quot;Error al eliminar el producto: </span><span class="si">{</span><span class="n">a</span><span class="si">}</span><span class="s2">, probablemente no exista&quot;</span>
+                    <span class="p">)</span>
+
+            <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">b</span><span class="p">:</span>
+                <span class="c1"># En caso de no detectar una selección correcta</span>
+                <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Error al seleccionar el producto: </span><span class="si">{</span><span class="n">b</span><span class="si">}</span><span class="s2">, probablemente no exista&quot;</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">c</span><span class="p">:</span>
+            <span class="c1"># Manejo de cualquier otro error inesperado</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Error inesperado: </span><span class="si">{</span><span class="n">c</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span></div>
+
+
+    <span class="c1"># Metodo para modificar un elemento seleccionándolo en el Treeview.</span>
+<div class="viewcode-block" id="Abmc.modificar_seleccionado">
+<a class="viewcode-back" href="../modelo.html#modelo.Abmc.modificar_seleccionado">[documentos]</a>
+    <span class="k">def</span> <span class="nf">modificar_seleccionado</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Metodo para modificar un producto seleccionandolo en el &#39;Treeview&#39;</span>
+<span class="sd">        Muestra dos cuadros de dialogo para insertar la modificacion:</span>
+<span class="sd">         - Un cuadro de diálogo para ingresar el nuevo nombre.</span>
+<span class="sd">         - Un cuadro de diálogo para ingresar la nueva cantidad.</span>
+<span class="sd">        :return Exception: En caso de ocurrir un error se notifica el error.&quot;&quot;&quot;</span>
+        <span class="c1"># Obtiene la selección actual en el treeview de consulta.</span>
+        <span class="n">seleccion</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">tree</span><span class="o">.</span><span class="n">selection</span><span class="p">()</span>
+
+        <span class="k">try</span><span class="p">:</span>
+            <span class="c1"># Verifica si hay una selección.</span>
+            <span class="k">if</span> <span class="n">seleccion</span><span class="p">:</span>
+                <span class="c1"># Obtiene la información de la fila seleccionada y la separa en un diccionario, se le asigna a una variable.</span>
+                <span class="n">item</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">tree</span><span class="o">.</span><span class="n">item</span><span class="p">(</span><span class="n">seleccion</span><span class="p">)</span>
+                <span class="c1"># El método item() de Treeview devuelve un diccionario con información de una fila seleccionada.</span>
+                <span class="c1"># La clave &quot;values&quot; en ese diccionario contiene una tupla con los valores de cada columna en esa fila. Los valos se asignan a las variables.</span>
+                <span class="n">codigo</span><span class="p">,</span> <span class="n">producto_actual</span><span class="p">,</span> <span class="n">cantidad_actual</span> <span class="o">=</span> <span class="n">item</span><span class="p">[</span><span class="s2">&quot;values&quot;</span><span class="p">]</span>
+
+                <span class="c1"># Muestra un cuadro de diálogo para ingresar el nuevo nombre.</span>
+                <span class="n">nuevo_producto</span> <span class="o">=</span> <span class="n">simpledialog</span><span class="o">.</span><span class="n">askstring</span><span class="p">(</span>
+                    <span class="s2">&quot;Modificar Nombre&quot;</span><span class="p">,</span>
+                    <span class="sa">f</span><span class="s2">&quot;Ingrese el nuevo nombre para el producto (ID: </span><span class="si">{</span><span class="n">codigo</span><span class="si">}</span><span class="s2">):&quot;</span><span class="p">,</span>
+                    <span class="n">initialvalue</span><span class="o">=</span><span class="n">producto_actual</span><span class="p">,</span>
+                <span class="p">)</span>
+
+                <span class="c1"># Verifica si se hizo clic en &quot;Cancelar&quot;.</span>
+                <span class="k">if</span> <span class="n">nuevo_producto</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                    <span class="k">return</span> <span class="n">producto_actual</span>
+
+                <span class="c1"># Muestra un cuadro de diálogo para ingresar la nueva cantidad.</span>
+                <span class="n">nueva_cantidad</span> <span class="o">=</span> <span class="n">simpledialog</span><span class="o">.</span><span class="n">askinteger</span><span class="p">(</span>
+                    <span class="s2">&quot;Modificar Cantidad&quot;</span><span class="p">,</span>
+                    <span class="sa">f</span><span class="s2">&quot;Ingrese la nueva cantidad para </span><span class="si">{</span><span class="n">producto_actual</span><span class="si">}</span><span class="s2"> (ID: </span><span class="si">{</span><span class="n">codigo</span><span class="si">}</span><span class="s2">):&quot;</span><span class="p">,</span>
+                    <span class="n">initialvalue</span><span class="o">=</span><span class="n">cantidad_actual</span><span class="p">,</span>
+                <span class="p">)</span>
+
+                <span class="c1"># Verifica si se hizo clic en &quot;Cancelar&quot;.</span>
+                <span class="k">if</span> <span class="n">nueva_cantidad</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                    <span class="k">return</span> <span class="n">cantidad_actual</span>
+
+                <span class="c1"># Actualiza la fila seleccionada en el treeview.</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">tree</span><span class="o">.</span><span class="n">item</span><span class="p">(</span>
+                    <span class="n">seleccion</span><span class="p">,</span> <span class="n">values</span><span class="o">=</span><span class="p">(</span><span class="n">codigo</span><span class="p">,</span> <span class="n">nuevo_producto</span><span class="p">,</span> <span class="n">nueva_cantidad</span><span class="p">)</span>
+                <span class="p">)</span>
+
+                <span class="c1"># Busca el producto a modificar por su código</span>
+                <span class="n">producto_a_modificar</span> <span class="o">=</span> <span class="n">Table</span><span class="o">.</span><span class="n">get_or_none</span><span class="p">(</span><span class="n">codigo</span><span class="o">=</span><span class="n">codigo</span><span class="p">)</span>
+
+                <span class="c1"># Verifica si el producto existe antes de intentar modificarlo</span>
+                <span class="k">if</span> <span class="n">producto_a_modificar</span><span class="p">:</span>
+                    <span class="c1"># Actualiza los valores del producto con los nuevos datos</span>
+                    <span class="n">producto_a_modificar</span><span class="o">.</span><span class="n">producto</span> <span class="o">=</span> <span class="n">nuevo_producto</span>
+                    <span class="n">producto_a_modificar</span><span class="o">.</span><span class="n">cantidad</span> <span class="o">=</span> <span class="n">nueva_cantidad</span>
+                    <span class="c1"># Guarda los cambios en la base de datos</span>
+                    <span class="n">producto_a_modificar</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
+
+                    <span class="c1"># Se notifica en consola que la acción es exitosa.</span>
+                    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Producto modificado con éxito!&quot;</span><span class="p">)</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="c1"># En caso de no encontrar el producto, se notifica en consola.</span>
+                    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;El producto seleccionado no existe.&quot;</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="c1"># Se notifica en consola en caso de no haber seleccionado ningún elemento.</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;No se ha seleccionado ningún elemento!&quot;</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">d</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Error en la seleccion de producto: </span><span class="si">{</span><span class="n">d</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span></div>
+
+
+    <span class="c1"># Metodo para realizar la consulta y mostrar los resultados en el treeview de consulta.</span>
+<div class="viewcode-block" id="Abmc.realizar_consulta">
+<a class="viewcode-back" href="../modelo.html#modelo.Abmc.realizar_consulta">[documentos]</a>
+    <span class="k">def</span> <span class="nf">realizar_consulta</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">consulta</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Metodo para realizar una consulta a traves de una entrada de texto.\n</span>
+<span class="sd">        :param consulta: Entrada de texto para realizar la consulta a travez de una palabra clave.</span>
+<span class="sd">        :type consulta: str</span>
+<span class="sd">        :return: Muestra los productos coincidentes en el &#39;Treeview&#39;&quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="c1"># Obtiene la palabra clave de la entrada de consulta.</span>
+            <span class="c1"># Toma la palabra clave y se convierte a minúsculas.</span>
+            <span class="c1"># .strip() verifica si el campo de consulta no está vacío</span>
+            <span class="n">palabra_clave</span> <span class="o">=</span> <span class="n">consulta</span><span class="o">.</span><span class="n">get</span><span class="p">()</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+            <span class="nb">print</span><span class="p">(</span>
+                <span class="s2">&quot;Consulta desde modelo:&quot;</span><span class="p">,</span> <span class="n">palabra_clave</span>
+            <span class="p">)</span>  <span class="c1"># Se imprime por consola para control.</span>
+            <span class="k">if</span> <span class="n">palabra_clave</span><span class="p">:</span>
+                <span class="c1"># Realiza la consulta utilizando Peewee</span>
+                <span class="n">resultados</span> <span class="o">=</span> <span class="n">Table</span><span class="o">.</span><span class="n">select</span><span class="p">()</span><span class="o">.</span><span class="n">where</span><span class="p">(</span>
+                    <span class="n">Table</span><span class="o">.</span><span class="n">producto</span><span class="o">.</span><span class="n">contains</span><span class="p">(</span><span class="n">palabra_clave</span><span class="p">)</span>
+                <span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;No se ingreso palabra clave&quot;</span><span class="p">)</span>
+            <span class="c1"># Variable para identificar las filas pares e impares.</span>
+            <span class="n">fondo_par</span> <span class="o">=</span> <span class="kc">True</span>
+            <span class="c1"># Verifica si hay resultados antes de intentar actualizar el treeview</span>
+            <span class="k">if</span> <span class="n">resultados</span><span class="p">:</span>
+                <span class="c1"># Elimina todas las filas existentes en el treeview para actualizarlo.</span>
+                <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">tree</span><span class="o">.</span><span class="n">get_children</span><span class="p">():</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">tree</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="n">item</span><span class="p">)</span>
+
+                <span class="c1"># Este bucle itera a través de los resultados obtenidos de la consulta a la base de datos y actualiza el treeview con esos resultados</span>
+                <span class="k">for</span> <span class="n">resultado</span> <span class="ow">in</span> <span class="n">resultados</span><span class="p">:</span>
+                    <span class="c1"># Convierte los valores a string antes de insertarlos en el treeview</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">codigo</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">resultado</span><span class="o">.</span><span class="n">codigo</span><span class="p">)</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">producto</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">resultado</span><span class="o">.</span><span class="n">producto</span><span class="p">)</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">cantidad</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">resultado</span><span class="o">.</span><span class="n">cantidad</span><span class="p">)</span>
+                    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Valores:&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">codigo</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">producto</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">cantidad</span><span class="p">)</span>
+                    <span class="c1"># Inserta una nueva fila en el treeview con los valores del producto actual.</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">tree</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span>
+                        <span class="s2">&quot;&quot;</span><span class="p">,</span>
+                        <span class="s2">&quot;end&quot;</span><span class="p">,</span>
+                        <span class="n">text</span><span class="o">=</span><span class="n">resultado</span><span class="p">,</span>
+                        <span class="n">values</span><span class="o">=</span><span class="p">(</span>
+                            <span class="n">resultado</span><span class="o">.</span><span class="n">codigo</span><span class="p">,</span>
+                            <span class="n">resultado</span><span class="o">.</span><span class="n">producto</span><span class="p">,</span>
+                            <span class="n">resultado</span><span class="o">.</span><span class="n">cantidad</span><span class="p">,</span>
+                        <span class="p">),</span>
+                        <span class="n">tags</span><span class="o">=</span><span class="p">(</span>
+                            <span class="s2">&quot;odd&quot;</span>
+                            <span class="k">if</span> <span class="n">fondo_par</span>
+                            <span class="ow">or</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">resultado</span><span class="o">.</span><span class="n">codigo</span><span class="p">,</span> <span class="nb">int</span><span class="p">)</span>
+                            <span class="ow">and</span> <span class="n">resultado</span><span class="o">.</span><span class="n">codigo</span> <span class="o">%</span> <span class="mi">2</span> <span class="o">==</span> <span class="mi">0</span>
+                            <span class="k">else</span> <span class="s2">&quot;even&quot;</span>
+                        <span class="p">),</span>
+                    <span class="p">)</span>
+                    <span class="c1"># Alterna el fondo para la próxima fila.</span>
+                    <span class="n">fondo_par</span> <span class="o">=</span> <span class="ow">not</span> <span class="n">fondo_par</span>
+                <span class="c1"># Agrega los colores de fondo para las filas impares y pares.</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">tree</span><span class="o">.</span><span class="n">tag_configure</span><span class="p">(</span>
+                    <span class="s2">&quot;odd&quot;</span><span class="p">,</span> <span class="n">background</span><span class="o">=</span><span class="s2">&quot;#E8E8E8&quot;</span>
+                <span class="p">)</span>  <span class="c1"># Fondo gris claro.</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">tree</span><span class="o">.</span><span class="n">tag_configure</span><span class="p">(</span><span class="s2">&quot;even&quot;</span><span class="p">,</span> <span class="n">background</span><span class="o">=</span><span class="s2">&quot;white&quot;</span><span class="p">)</span>  <span class="c1"># Fondo blanco.</span>
+                <span class="c1"># Se limpia el campo de entrada después que se ejecuta la acción.</span>
+                <span class="n">consulta</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="c1"># Si no hay resultados, muestra una notificación en consola</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;No se encontraron productos para la consulta.&quot;</span><span class="p">)</span>
+
+        <span class="c1"># Entra en este bloque cuando ocurre una excepción de cualquier tipo. y Asigna la instancia a la variable e para ser utilizada.</span>
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="c1"># Se le notifica al usuario en caso de error y se muestran detalles del error.</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Hubo un error: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span></div>
+
+
+    <span class="c1"># Metodo para mostrar el inventario actualizado en el treeview, ya sea creado o modificado.</span>
+<div class="viewcode-block" id="Abmc.actualizar_treeview">
+<a class="viewcode-back" href="../modelo.html#modelo.Abmc.actualizar_treeview">[documentos]</a>
+    <span class="k">def</span> <span class="nf">actualizar_treeview</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tree</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Metodo para acttualizar las filas del &#39;Treeview&#39;.\n</span>
+<span class="sd">        Se llama este metodo de diferentes formas:</span>
+<span class="sd">         - Al iniciar la aplicacion se actualizan las filas del &#39;Treeview&#39; con datos que contenga la base de datos.</span>
+<span class="sd">         - Al realizar una operacion &#39;CRUD&#39;.</span>
+<span class="sd">         - Al hacer click en el boton en pantalla &#39;Actualizar&#39;.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="c1"># Elimina todas las filas existentes en el treeview para actualizarlo.</span>
+            <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">tree</span><span class="o">.</span><span class="n">get_children</span><span class="p">():</span>
+                <span class="n">tree</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="n">item</span><span class="p">)</span>
+
+            <span class="c1"># Selecciona todos los registros de la tabla &#39;Table&#39;.</span>
+            <span class="n">productos</span> <span class="o">=</span> <span class="n">Table</span><span class="o">.</span><span class="n">select</span><span class="p">()</span><span class="o">.</span><span class="n">order_by</span><span class="p">(</span><span class="n">Table</span><span class="o">.</span><span class="n">codigo</span><span class="o">.</span><span class="n">desc</span><span class="p">())</span>
+
+            <span class="c1"># Variable para identificar las filas pares e impares.</span>
+            <span class="n">fondo_par</span> <span class="o">=</span> <span class="kc">True</span>
+
+            <span class="c1"># Itera sobre cada producto y lo agrega al treeview.</span>
+            <span class="k">for</span> <span class="n">producto</span> <span class="ow">in</span> <span class="n">productos</span><span class="p">:</span>
+                <span class="c1"># Inserta una nueva fila en el treeview con los valores del producto actual.</span>
+                <span class="n">tree</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span>
+                    <span class="s2">&quot;&quot;</span><span class="p">,</span>  <span class="c1"># El primer argumento es el ID.</span>
+                    <span class="mi">0</span><span class="p">,</span>  <span class="c1"># El segundo argumento es la posición donde se insertará la nueva fila.</span>
+                    <span class="n">text</span><span class="o">=</span><span class="n">producto</span><span class="o">.</span><span class="n">codigo</span><span class="p">,</span>
+                    <span class="c1"># Los valores de las columnas para la nueva fila.</span>
+                    <span class="n">values</span><span class="o">=</span><span class="p">(</span><span class="n">producto</span><span class="o">.</span><span class="n">codigo</span><span class="p">,</span> <span class="n">producto</span><span class="o">.</span><span class="n">producto</span><span class="p">,</span> <span class="n">producto</span><span class="o">.</span><span class="n">cantidad</span><span class="p">),</span>
+                    <span class="c1"># Etiqueta que determina el color de fondo de la fila.</span>
+                    <span class="n">tags</span><span class="o">=</span><span class="p">(</span><span class="s2">&quot;odd&quot;</span> <span class="k">if</span> <span class="n">fondo_par</span> <span class="k">else</span> <span class="s2">&quot;even&quot;</span><span class="p">),</span>
+                <span class="p">)</span>
+                <span class="c1"># Alterna el fondo para la próxima fila.</span>
+                <span class="n">fondo_par</span> <span class="o">=</span> <span class="ow">not</span> <span class="n">fondo_par</span>
+
+            <span class="c1"># Agrega los colores de fondo para las filas impares y pares.</span>
+            <span class="n">tree</span><span class="o">.</span><span class="n">tag_configure</span><span class="p">(</span><span class="s2">&quot;odd&quot;</span><span class="p">,</span> <span class="n">background</span><span class="o">=</span><span class="s2">&quot;#E8E8E8&quot;</span><span class="p">)</span>  <span class="c1"># Fondo gris claro.</span>
+            <span class="n">tree</span><span class="o">.</span><span class="n">tag_configure</span><span class="p">(</span><span class="s2">&quot;even&quot;</span><span class="p">,</span> <span class="n">background</span><span class="o">=</span><span class="s2">&quot;white&quot;</span><span class="p">)</span>  <span class="c1"># Fondo blanco.</span>
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+            <span class="c1"># Manejo de cualquier excepción que pueda ocurrir durante la ejecución.</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Error al actualizar el Treeview: </span><span class="si">{</span><span class="n">f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span></div>
+</div>
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Derechos de autor 2024, Samuel Montenegro.</p>
+  </div>
+
+  Compilado con <a href="https://www.sphinx-doc.org/">Sphinx</a> usando un
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">tema</a>
+    proporcionado por <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
