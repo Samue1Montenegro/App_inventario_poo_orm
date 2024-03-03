@@ -1,15 +1,19 @@
 
 # App Inventario 
 
+## Caracteristicas
+
 - Esta aplicacion simula un inventario de productos con un sistema CRUD.
 - Se realiza con programcaion orientada a objetos (POO)
 - Se utiliza el patron MVC
+- Se Realizan validaciones en campos de entrada con expreciones regulares (Regex)
+- Implementacion de excepciones
 - Como interfaz grafica se utiliza Tkinter.
 - Se utiliza el ORM Pewee para conectar a la base de datos Sqlite3
 - Para documentar la aplicacion se utiliza Sphinx    
 
 
-## Caracteristicas
+## Funcionalidades
 
 - Crear nuevos productos
 - Borrar productos
@@ -35,7 +39,7 @@
 
 ## Feedback
 
-Si tienes alguna sugerencia de mejora o inconveniente, por favor contactame mediante [![linkedin](https://img.shields.io/badge/linkedin-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/)
+Si tienes alguna sugerencia de mejora o inconveniente, por favor contactame mediante  [![linkedin](https://img.shields.io/badge/linkedin-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/)
 
 
 ## Screenshots
