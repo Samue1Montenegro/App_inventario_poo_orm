@@ -9,7 +9,7 @@
 - Se Realizan validaciones en campos de entrada con expreciones regulares (Regex)
 - Implementacion de excepciones
 - Como interfaz grafica se utiliza Tkinter.
-- Se utiliza el ORM Pewee para conectar a la base de datos Sqlite3
+- Se utiliza el ORM Pewee para conectar a la base de datos Sqlite
 - Para documentar la aplicacion se utiliza Sphinx    
 
 
