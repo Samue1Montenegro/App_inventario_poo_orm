@@ -29,17 +29,17 @@
 
 ## Autor
 
-- [@Samue1Montenegro (Github)](https://github.com/Samue1Montenegro)
+- [@SamuelMontenegro](https://github.com/Samue1Montenegro) [![LinkedIn](https://img.shields.io/badge/LinkedIn-1f425f.svg)](www.linkedin.com/in/-sm-)
 
-- [@Samuel Montenegro (Linkedin)](www.linkedin.com/in/-sm-)
+
 ## Documentacion
 
-[Documentacion](https://github.com/Samue1Montenegro/App_inventario_poo_orm/blob/main/docs/_build/html/index.html)
+![SPHINX](https://img.shields.io/badge/Made%20with-Sphinx-1f425f.svg) [![Doc](https://img.shields.io/badge/Documentacion-1f425f.svg)](https://github.com/Samue1Montenegro/App_inventario_poo_orm/blob/main/docs/_build/html/index.html)
 
 
 ## Feedback
 
-Si tienes alguna sugerencia de mejora o inconveniente, por favor contactame mediante  [![linkedin](https://img.shields.io/badge/linkedin-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/)
+Si tienes alguna sugerencia de mejora o inconveniente, por favor contactame mediante  [LinkedIn](www.linkedin.com/in/-sm-)
 
 
 ## Screenshots
