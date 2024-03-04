@@ -10,14 +10,14 @@ Este modulo contiene la clase principal del modulo Tema en el que se encuentran 
 import random
 
 
-# Definición de la clase Tema
 class Tema:
-    """Clase principal del modulo temas"""
+    """
+    Clase principal del modulo temas
+    """
 
     def __init__(self, root):
         self.root = root
 
-    # Método para cambiar el tema de la aplicación
     def cambiar_tema(
         self,
     ):
@@ -27,9 +27,9 @@ class Tema:
          - Se configura el color de fondo
         :return: none
         """
-        # Genera un color aleatorio
+
         color_nuevo = "#{:02x}{:02x}{:02x}".format(
             random.randint(0, 255), random.randint(0, 255), random.randint(0, 255)
         )
-        # Configura el color de fondo
+
         self.root.configure(bg=color_nuevo)

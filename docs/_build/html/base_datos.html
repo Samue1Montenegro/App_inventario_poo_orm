@@ -99,7 +99,7 @@
 <p>base_datos.py es el modulo donde se encuentran :</p>
 <blockquote>
 <div><ul class="simple">
-<li><p>El modelo de datos utilizando el ORM Pewee, conectado con Sqlite3.</p></li>
+<li><p>El modelo de datos utilizando el ORM Pewee, conectado con Sqlite.</p></li>
 <li><p>Definicion de ruta/directorio en la que el archivo «mi_base.db» aparecera.</p></li>
 <li><p>Creacion de la tabla de la base de datos y definicion de campos que representen las columnas.</p></li>
 <li><p>Se establece la conexion de la base de datos.</p></li>
@@ -110,6 +110,8 @@
 <dt class="sig sig-object py" id="base_datos.Table">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">base_datos.</span></span><span class="sig-name descname"><span class="pre">Table</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/base_datos.html#Table"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#base_datos.Table" title="Link to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Model</span></code></p>
+<p>Aquí se define una clase llamada Table que hereda de la clase Model
+Model es una clase base proporcionada por peewee para definir modelos de bases de datos.</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="base_datos.Table.DoesNotExist">
 <span class="sig-name descname"><span class="pre">DoesNotExist</span></span><a class="headerlink" href="#base_datos.Table.DoesNotExist" title="Link to this definition"></a></dt>
@@ -118,12 +120,12 @@
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="base_datos.Table.cantidad">
-<span class="sig-name descname"><span class="pre">cantidad</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;CharField:</span> <span class="pre">Table.cantidad&gt;</span></em><a class="headerlink" href="#base_datos.Table.cantidad" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">cantidad</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;IntegerField:</span> <span class="pre">Table.cantidad&gt;</span></em><a class="headerlink" href="#base_datos.Table.cantidad" title="Link to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="base_datos.Table.codigo">
-<span class="sig-name descname"><span class="pre">codigo</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;CharField:</span> <span class="pre">Table.codigo&gt;</span></em><a class="headerlink" href="#base_datos.Table.codigo" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">codigo</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;IntegerField:</span> <span class="pre">Table.codigo&gt;</span></em><a class="headerlink" href="#base_datos.Table.codigo" title="Link to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">

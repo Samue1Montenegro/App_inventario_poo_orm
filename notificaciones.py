@@ -12,9 +12,10 @@ from tkinter import messagebox
 
 
 class Notificacion:
-    """Clase principal del modulo notificaciones"""
+    """
+    Clase principal del modulo notificaciones
+    """
 
-    # Metodo para poder mostrar notificaciones en las acciones o mostrar errores.
     def mostrar_notificacion(mensaje):
         """
         Este metodo incorpora funcion messagebox del modulo tkinter

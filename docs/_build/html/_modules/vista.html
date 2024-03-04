@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>vista &mdash; documentación de  App Inventario - 0.0.1</title>
+  <title>vista &mdash; Documentación de App Inventario</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=80d5e7a1" />
       <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=19f00094" />
 
@@ -45,7 +45,7 @@
   </form>
 </div>
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
-              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+              <p class="caption" role="heading"><span class="caption-text">Contenido:</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../base_datos.html">base_datos module</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../documentacion_html.html">documentacion_html module</a></li>
@@ -118,13 +118,11 @@
 <span class="c1"># Se importa la clase Button para crear botones en una interfaz.</span>
 <span class="kn">from</span> <span class="nn">tkinter</span> <span class="kn">import</span> <span class="n">Button</span>
 
+<span class="c1"># Se importa la clase webview para visualizar archivos</span>
 <span class="kn">import</span> <span class="nn">webview</span>
 
 <span class="c1"># Se importa desde el modulo notificaciones la clase Notificacion</span>
 <span class="kn">from</span> <span class="nn">notificaciones</span> <span class="kn">import</span> <span class="n">Notificacion</span>
-
-<span class="c1"># Se crea el objeto notificar instanciando la clase importada</span>
-<span class="n">notificar</span> <span class="o">=</span> <span class="n">Notificacion</span>
 
 <span class="c1"># Se impora desde el modulo documentacion_html la clase ServicioHtml</span>
 <span class="kn">from</span> <span class="nn">documentacion_html</span> <span class="kn">import</span> <span class="n">DocumentHtml</span>
@@ -135,13 +133,14 @@
 
 <span class="kn">from</span> <span class="nn">temas</span> <span class="kn">import</span> <span class="n">Tema</span>
 
+<span class="c1"># Se crea el objeto notificar instanciando la clase importada</span>
+<span class="n">notificar</span> <span class="o">=</span> <span class="n">Notificacion</span>
 
 <span class="c1"># ----------------------------------------------------------------------------------</span>
 <span class="c1"># ######################       VISTA                ########################</span>
 <span class="c1"># ----------------------------------------------------------------------------------</span>
 
 
-<span class="c1"># clase que contiene la estructura y vista de la interfaz</span>
 <div class="viewcode-block" id="VistaApp">
 <a class="viewcode-back" href="../vista.html#vista.VistaApp">[documentos]</a>
 <span class="k">class</span> <span class="nc">VistaApp</span><span class="p">:</span>
@@ -149,7 +148,9 @@
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">root</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">root</span> <span class="o">=</span> <span class="n">root</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Ventana principal&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Ventana principal</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">tree</span> <span class="o">=</span> <span class="n">ttk</span><span class="o">.</span><span class="n">Treeview</span><span class="p">(</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">root</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="p">(</span><span class="s2">&quot;ID&quot;</span><span class="p">,</span> <span class="s2">&quot;Producto&quot;</span><span class="p">,</span> <span class="s2">&quot;Cantidad&quot;</span><span class="p">),</span> <span class="n">show</span><span class="o">=</span><span class="s2">&quot;headings&quot;</span>
         <span class="p">)</span>
@@ -160,6 +161,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">abmc_import</span> <span class="o">=</span> <span class="n">Abmc</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tree</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">tema</span> <span class="o">=</span> <span class="n">Tema</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">root</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">archivo</span> <span class="o">=</span> <span class="n">DocumentHtml</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">root</span><span class="p">)</span>
+
         <span class="c1"># Titulo general de la aplicacion.</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">titulo</span> <span class="o">=</span> <span class="n">Label</span><span class="p">(</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">root</span><span class="p">,</span>
@@ -258,7 +260,9 @@
         <span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">separador</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">row</span><span class="o">=</span><span class="mi">6</span><span class="p">,</span> <span class="n">pady</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
 
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Boton para dar de alta un producto y sus configuraciones.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Boton para dar de alta un producto y sus configuraciones.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">boton_alta</span> <span class="o">=</span> <span class="n">Button</span><span class="p">(</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">root</span><span class="p">,</span>
             <span class="n">text</span><span class="o">=</span><span class="s2">&quot;Agregar&quot;</span><span class="p">,</span>
@@ -269,7 +273,9 @@
         <span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">boton_alta</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">row</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">column</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
 
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Boton para borrar un producto y sus configuraciones.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Boton para borrar un producto y sus configuraciones.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">boton_borrar</span> <span class="o">=</span> <span class="n">Button</span><span class="p">(</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">root</span><span class="p">,</span>
             <span class="n">text</span><span class="o">=</span><span class="s2">&quot;Borrar&quot;</span><span class="p">,</span>
@@ -280,7 +286,10 @@
         <span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">boton_borrar</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">row</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">column</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">pady</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span>
 
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Se crea el botón Modificar Producto para modificar el elemento seleccionado y las configuraciones del boton.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Se crea el botón Modificar Producto para modificar el elemento seleccionado</span>
+<span class="sd">        y las configuraciones del boton.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">modificar_boton</span> <span class="o">=</span> <span class="n">Button</span><span class="p">(</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">root</span><span class="p">,</span>
             <span class="n">text</span><span class="o">=</span><span class="s2">&quot;Modificar Producto&quot;</span><span class="p">,</span>
@@ -290,7 +299,9 @@
         <span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">modificar_boton</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">row</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">column</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">pady</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span>
 
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Boton para realizar una consulta sobre un producto y sus configuraciones.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Boton para realizar una consulta sobre un producto y sus configuraciones.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">boton_consulta</span> <span class="o">=</span> <span class="n">Button</span><span class="p">(</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">root</span><span class="p">,</span>
             <span class="n">text</span><span class="o">=</span><span class="s2">&quot;Consultar&quot;</span><span class="p">,</span>
@@ -301,7 +312,10 @@
         <span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">boton_consulta</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">row</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">column</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">pady</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span>
 
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Boton para poder actualizar el inventario luego de realizar una consulta y sus configuraciones.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Boton para poder actualizar el inventario luego de realizar una consulta</span>
+<span class="sd">        y sus configuraciones.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">boton_actualizar</span> <span class="o">=</span> <span class="n">Button</span><span class="p">(</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">root</span><span class="p">,</span>
             <span class="n">text</span><span class="o">=</span><span class="s2">&quot;Actualizar&quot;</span><span class="p">,</span>
@@ -312,7 +326,9 @@
         <span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">boton_actualizar</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">row</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">column</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">pady</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span>
 
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Botón para cambiar el tema de fondo&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Botón para cambiar el tema de fondo</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">boton_tema</span> <span class="o">=</span> <span class="n">Button</span><span class="p">(</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">root</span><span class="p">,</span>
             <span class="n">variable</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">root</span><span class="o">.</span><span class="n">configure</span><span class="p">(</span><span class="n">bg</span><span class="o">=</span><span class="s2">&quot;#F2F3F4&quot;</span><span class="p">),</span>
@@ -323,7 +339,9 @@
         <span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">boton_tema</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">row</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">column</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">pady</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span>
 
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Boton para abrir la documentacion de la app&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Boton para abrir la documentacion de la app</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">boton_doc</span> <span class="o">=</span> <span class="n">tk</span><span class="o">.</span><span class="n">Button</span><span class="p">(</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">root</span><span class="p">,</span>
             <span class="n">text</span><span class="o">=</span><span class="s2">&quot;Documentacion&quot;</span><span class="p">,</span>
@@ -332,127 +350,111 @@
         <span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">boton_doc</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">row</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">column</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">pady</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span>
 
-    <span class="c1"># Se crea una funcion para instanciar al metodo alta de la clase abmc</span>
-    <span class="c1"># y poder utilizarlo en el boton alta</span>
 <div class="viewcode-block" id="VistaApp.alta">
 <a class="viewcode-back" href="../vista.html#vista.VistaApp.alta">[documentos]</a>
     <span class="k">def</span> <span class="nf">alta</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
     <span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Este metodo llama al metodo &#39;alta&#39; ubicado en el modulo modelo</span>
-<span class="sd">        y se llama desde el boton consulta.\n</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Este metodo llama al metodo &#39;alta&#39; ubicado en el modulo modelo</span>
+<span class="sd">        y se llama desde el boton &#39;boton_alta&#39;.\n</span>
 <span class="sd">        Si el producto se crea exitosamente se le notifica al usuario en pantalla.\n</span>
-<span class="sd">        En caso de ocurrir un error se le notifica al usuario en pantalla.&quot;&quot;&quot;</span>
+<span class="sd">        En caso de ocurrir un error se le notifica al usuario en pantalla.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
         <span class="k">try</span><span class="p">:</span>
-
-            <span class="k">if</span> <span class="p">(</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">abmc_import</span><span class="o">.</span><span class="n">alta</span><span class="p">(</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">codigo_val</span><span class="p">,</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">producto_val</span><span class="p">,</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">cantidad_val</span><span class="p">,</span>
-                <span class="p">)</span>
-                <span class="ow">is</span> <span class="kc">True</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">abmc_import</span><span class="o">.</span><span class="n">alta</span><span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">codigo_val</span><span class="p">,</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">producto_val</span><span class="p">,</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">cantidad_val</span><span class="p">,</span>
             <span class="p">):</span>
-                <span class="c1"># Se notifica al usuario de la acción exitosa.</span>
                 <span class="n">notificar</span><span class="o">.</span><span class="n">mostrar_notificacion</span><span class="p">(</span><span class="s2">&quot;Producto agregado con éxito.&quot;</span><span class="p">)</span>
-            <span class="k">else</span><span class="p">:</span>
-                <span class="c1"># Se notifica al usuario de un error en campos de entrada</span>
-                <span class="n">notificar</span><span class="o">.</span><span class="n">mostrar_notificacion</span><span class="p">(</span>
-                    <span class="s2">&quot;Elementos no válidos.!</span><span class="se">\n</span><span class="s2"> Para Producto: Solo letras incluida la ñ, números, caracteres /, _, &#39; y espacios permitidos.</span><span class="se">\n</span><span class="s2">&quot;</span>
-                    <span class="s2">&quot;Para Cantidad: Solo números enteros y decimales separados con una coma.</span><span class="se">\n</span><span class="s2">&quot;</span>
-                    <span class="s2">&quot;Para número ID/Código: Solo números enteros.&quot;</span>
-                <span class="p">)</span>
-        <span class="k">except</span><span class="p">:</span>
-            <span class="c1"># Se notifica al usuario de un error en campos de entrada</span>
-            <span class="n">notificar</span><span class="o">.</span><span class="n">mostrar_notificacion</span><span class="p">(</span>
-                <span class="s2">&quot;Elementos no válidos.!</span><span class="se">\n</span><span class="s2"> Para Producto: Solo letras incluida la ñ, números, caracteres /, _, &#39; y espacios permitidos.</span><span class="se">\n</span><span class="s2">&quot;</span>
-                <span class="s2">&quot;Para Cantidad: Solo números enteros y decimales separados con una coma.</span><span class="se">\n</span><span class="s2">&quot;</span>
-                <span class="s2">&quot;Para número ID/Código: Solo números enteros.&quot;</span>
-            <span class="p">)</span></div>
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">a</span><span class="p">:</span>
+            <span class="n">notificar</span><span class="o">.</span><span class="n">mostrar_notificacion</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Error: </span><span class="si">{</span><span class="n">a</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Error de excepcion en metodo alta de vista: </span><span class="si">{</span><span class="n">a</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span></div>
 
 
-    <span class="c1"># Se crea una funcion para instanciar al metodo borrar de la clase abmc</span>
-    <span class="c1"># y poder utilizarlo en el boton borrar</span>
 <div class="viewcode-block" id="VistaApp.borrar">
 <a class="viewcode-back" href="../vista.html#vista.VistaApp.borrar">[documentos]</a>
     <span class="k">def</span> <span class="nf">borrar</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
     <span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Este metodo llama al metodo &#39;borrar&#39; ubicado en el modulo modelo</span>
-<span class="sd">        y se llama desde el boton consulta.\n</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Este metodo llama al metodo &#39;borrar&#39; ubicado en el modulo modelo</span>
+<span class="sd">        y se llama desde el boton &#39;boton_orrar&#39;.\n</span>
 <span class="sd">        Si el producto se borra exitosamente, se notifica al usuario en pantalla.\n</span>
-<span class="sd">        En caso de ocurrir un error se le notifica al usuario en pantalla.&quot;&quot;&quot;</span>
+<span class="sd">        En caso de ocurrir un error se le notifica al usuario en pantalla.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">try</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">abmc_import</span><span class="o">.</span><span class="n">borrar</span><span class="p">()</span>
-        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">b</span><span class="p">:</span>
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">c</span><span class="p">:</span>
             <span class="n">notificar</span><span class="o">.</span><span class="n">mostrar_notificacion</span><span class="p">(</span>
-                <span class="sa">f</span><span class="s2">&quot;Ocurrió un error al eliminar el elemento.</span><span class="se">\n</span><span class="si">{</span><span class="nb">str</span><span class="p">(</span><span class="n">b</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span>
+                <span class="sa">f</span><span class="s2">&quot;Ocurrió un error al eliminar el elemento.</span><span class="se">\n</span><span class="si">{</span><span class="nb">str</span><span class="p">(</span><span class="n">c</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span>
             <span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="c1"># Se le notifica al usuario que la acción es exitosa.</span>
+
             <span class="n">notificar</span><span class="o">.</span><span class="n">mostrar_notificacion</span><span class="p">(</span><span class="s2">&quot;Elemento eliminado con éxito.&quot;</span><span class="p">)</span></div>
 
 
-    <span class="c1"># Se crea una funcion para instanciar al metodo modificar_seleccionado de la clase abmc</span>
-    <span class="c1"># y poder utilizarlo en el boton modificar</span>
 <div class="viewcode-block" id="VistaApp.modificar">
 <a class="viewcode-back" href="../vista.html#vista.VistaApp.modificar">[documentos]</a>
     <span class="k">def</span> <span class="nf">modificar</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
     <span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Este metodo llama al metodo &#39;modificar_seleccionado&#39; ubicado en el modulo modelo</span>
-<span class="sd">        y se llama desde el boton consulta.\n</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Este metodo llama al metodo &#39;modificar_seleccionado&#39; ubicado en el modulo modelo</span>
+<span class="sd">        y se llama desde el boton &#39;boton_modificar&#39;.\n</span>
 <span class="sd">        Si se modifica el producto exitosamente, se notifica al usuario en pantalla\n</span>
-<span class="sd">        En caso de ocurrir un error se le notifica al usuario en pantalla.&quot;&quot;&quot;</span>
+<span class="sd">        En caso de ocurrir un error se le notifica al usuario en pantalla.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">try</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">abmc_import</span><span class="o">.</span><span class="n">modificar_seleccionado</span><span class="p">()</span>
-        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">c</span><span class="p">:</span>
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">d</span><span class="p">:</span>
             <span class="n">notificar</span><span class="o">.</span><span class="n">mostrar_notificacion</span><span class="p">(</span>
-                <span class="sa">f</span><span class="s2">&quot;Error en la seleccion de producto.</span><span class="se">\n</span><span class="si">{</span><span class="nb">str</span><span class="p">(</span><span class="n">c</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span>
+                <span class="sa">f</span><span class="s2">&quot;Error en la seleccion de producto.</span><span class="se">\n</span><span class="si">{</span><span class="nb">str</span><span class="p">(</span><span class="n">d</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span>
             <span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="n">notificar</span><span class="o">.</span><span class="n">mostrar_notificacion</span><span class="p">(</span><span class="s2">&quot;Producto modificado con éxito!&quot;</span><span class="p">)</span></div>
 
 
-    <span class="c1"># Se crea una funcion para instanciar al metodo realizar_consulta de la clase abmc</span>
-    <span class="c1"># y poder utilizarlo en el boton alta</span>
 <div class="viewcode-block" id="VistaApp.consulta">
 <a class="viewcode-back" href="../vista.html#vista.VistaApp.consulta">[documentos]</a>
     <span class="k">def</span> <span class="nf">consulta</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
     <span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Este metodo llama al metodo &#39;realizar_consulta&#39; ubicado en el modulo modelo</span>
-<span class="sd">        y se llama desde el boton consulta.\n</span>
-<span class="sd">        En caso de ocurrir un error se le notifica al usuario en pantalla.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Este metodo llama al metodo &#39;realizar_consulta&#39; ubicado en el modulo modelo</span>
+<span class="sd">        y se llama desde el boton &#39;boton_onsulta&#39;.\n</span>
+<span class="sd">        En caso de ocurrir un error se le notifica al usuario en pantalla.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">try</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">abmc_import</span><span class="o">.</span><span class="n">realizar_consulta</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">consulta_val</span><span class="p">)</span>
-        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">d</span><span class="p">:</span>
-            <span class="c1"># Se le notifica al usuario en caso de error y se muestran detalles del error.</span>
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+
             <span class="n">notificar</span><span class="o">.</span><span class="n">mostrar_notificacion</span><span class="p">(</span>
-                <span class="sa">f</span><span class="s2">&quot;Hubo un error al realizar la consulta</span><span class="se">\n</span><span class="s2">: </span><span class="si">{</span><span class="nb">str</span><span class="p">(</span><span class="n">d</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span>
+                <span class="sa">f</span><span class="s2">&quot;Hubo un error al realizar la consulta</span><span class="se">\n</span><span class="s2">: </span><span class="si">{</span><span class="nb">str</span><span class="p">(</span><span class="n">f</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span>
             <span class="p">)</span></div>
 
 
-    <span class="c1"># Se crea una funcion para instanciar al metodo actualizar_treeview de la clase abmc</span>
-    <span class="c1"># y poder utilizarlo en el boton alta</span>
 <div class="viewcode-block" id="VistaApp.actualizar">
 <a class="viewcode-back" href="../vista.html#vista.VistaApp.actualizar">[documentos]</a>
     <span class="k">def</span> <span class="nf">actualizar</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
     <span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Este metodo llama al metodo &#39;actualizar_treeview&#39; ubicado en el modulo modelo</span>
-<span class="sd">        y se llama desde el boton actualizar.\n</span>
-<span class="sd">        En caso de ocurrir un error se le notifica al usuario en pantalla.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Este metodo llama al metodo &#39;actualizar_treeview&#39; ubicado en el modulo modelo</span>
+<span class="sd">        y se llama desde el boton &#39;boton_actualizar&#39;.\n</span>
+<span class="sd">        En caso de ocurrir un error se le notifica al usuario en pantalla.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">try</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">abmc_import</span><span class="o">.</span><span class="n">actualizar_treeview</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tree</span><span class="p">)</span>
-        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
-            <span class="c1"># Se le notifica al usuario en caso de error y se muestran detalles del error.</span>
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">g</span><span class="p">:</span>
+
             <span class="n">notificar</span><span class="o">.</span><span class="n">mostrar_notificacion</span><span class="p">(</span>
-                <span class="sa">f</span><span class="s2">&quot;Hubo un error al actualizar el treeview</span><span class="se">\n</span><span class="s2">: </span><span class="si">{</span><span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span>
+                <span class="sa">f</span><span class="s2">&quot;Hubo un error al actualizar el treeview</span><span class="se">\n</span><span class="s2">: </span><span class="si">{</span><span class="nb">str</span><span class="p">(</span><span class="n">g</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span>
             <span class="p">)</span></div>
 
 
-    <span class="c1"># Metodo para crear e iniciar la ventana html</span>
 <div class="viewcode-block" id="VistaApp.mostrar_html">
 <a class="viewcode-back" href="../vista.html#vista.VistaApp.mostrar_html">[documentos]</a>
     <span class="k">def</span> <span class="nf">mostrar_html</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">archivo_html</span><span class="p">):</span>
@@ -473,9 +475,12 @@
 <div class="viewcode-block" id="VistaApp.abrir_archivo_html">
 <a class="viewcode-back" href="../vista.html#vista.VistaApp.abrir_archivo_html">[documentos]</a>
     <span class="k">def</span> <span class="nf">abrir_archivo_html</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Este metodo obtiene la ruta del archivo html, utilizando esta ruta</span>
-<span class="sd">        para mostrar el contenido en la ventana que crea &#39;mostrar_html&#39;</span>
-<span class="sd">        Se llamara este metodo desde el boton &#39;boton_doc&#39;&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Este metodo obtiene la ruta del archivo html, utilizando esta ruta</span>
+<span class="sd">        para mostrar el contenido en la ventana que crea &#39;mostrar_html&#39;.\n</span>
+<span class="sd">        Se llamara este metodo desde el boton &#39;boton_doc&#39;.\n</span>
+<span class="sd">        Desde la pantalla se podra visualizar haciendo click en boton &#39;Documentacion&#39;</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">archivo_html</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">archivo</span><span class="o">.</span><span class="n">obtener_archivo_html</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">mostrar_html</span><span class="p">(</span><span class="n">archivo_html</span><span class="p">)</span></div>
 </div>

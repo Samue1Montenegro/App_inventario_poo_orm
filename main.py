@@ -25,17 +25,17 @@ import vista
 
 # Clase principal
 class Controller:
-    """Clase principal del modulo main.py"""
+    """
+    Clase principal del modulo main.py
+    """
 
     def __init__(self, root):
+        """
+        Esta clase crea al objeto VistaApp asignandolo al atributo objeto_vista.
+        """
         self.root = root
         # Se crea el objeto VistaApp y se lo asigna a objetivo_vista
         self.objeto_vista = vista.VistaApp(self.root)
-
-    """
-    Esta clase crea al objeto VistaApp asignandolo al atributo objeto_vista.
-
-    """
 
 
 # Condición que verifica si el script se está ejecutando como el programa principal.

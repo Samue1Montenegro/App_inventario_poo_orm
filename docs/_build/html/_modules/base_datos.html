@@ -84,7 +84,7 @@
   <h1>Código fuente para base_datos</h1><div class="highlight"><pre>
 <span></span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">base_datos.py es el modulo donde se encuentran :\n</span>
-<span class="sd">  - El modelo de datos utilizando el ORM Pewee, conectado con Sqlite3.</span>
+<span class="sd">  - El modelo de datos utilizando el ORM Pewee, conectado con Sqlite.</span>
 <span class="sd">  - Definicion de ruta/directorio en la que el archivo &quot;mi_base.db&quot; aparecera.</span>
 <span class="sd">  - Creacion de la tabla de la base de datos y definicion de campos que representen las columnas.</span>
 <span class="sd">  - Se establece la conexion de la base de datos.</span>
@@ -92,13 +92,14 @@
 
 <span class="sd">&quot;&quot;&quot;</span>
 
-<span class="c1"># Se importan las librerias de pewee</span>
-<span class="kn">from</span> <span class="nn">peewee</span> <span class="kn">import</span> <span class="o">*</span>
-
+<span class="c1"># -*- coding: utf-8 -*-</span>
 <span class="c1"># Se importa el modulo OS para interactuar con el sistema operativo</span>
 <span class="kn">import</span> <span class="nn">os</span>
 
-<span class="c1"># Modelo de datos usando Peewee</span>
+<span class="c1"># Se importan las librerias de pewee para conectar con Sqlite</span>
+<span class="kn">from</span> <span class="nn">peewee</span> <span class="kn">import</span> <span class="o">*</span>
+
+
 <span class="k">try</span><span class="p">:</span>
     <span class="c1"># Obtiene la ruta absoluta del directorio en el que se encuentra el script</span>
     <span class="n">script_directory</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="vm">__file__</span><span class="p">))</span>
@@ -111,30 +112,36 @@
     <span class="n">db</span> <span class="o">=</span> <span class="n">SqliteDatabase</span><span class="p">(</span><span class="n">database_path</span><span class="p">)</span>
     <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Ruta de la base de datos:&quot;</span><span class="p">,</span> <span class="n">db</span><span class="o">.</span><span class="n">database</span><span class="p">)</span>
 
-    <span class="c1"># Aquí se define una clase llamada Table que hereda de la clase Model</span>
-    <span class="c1"># Model es una clase base proporcionada por peewee para definir modelos de bases de datos.</span>
 <div class="viewcode-block" id="Table">
 <a class="viewcode-back" href="../base_datos.html#base_datos.Table">[documentos]</a>
     <span class="k">class</span> <span class="nc">Table</span><span class="p">(</span><span class="n">Model</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Aquí se define una clase llamada Table que hereda de la clase Model</span>
+<span class="sd">        Model es una clase base proporcionada por peewee para definir modelos de bases de datos.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
         <span class="c1"># Se definen tres campos de la tabla,</span>
         <span class="c1"># que representarán las columnas en la tabla de la base de datos.</span>
-        <span class="n">codigo</span> <span class="o">=</span> <span class="n">CharField</span><span class="p">()</span>
+        <span class="n">codigo</span> <span class="o">=</span> <span class="n">IntegerField</span><span class="p">(</span><span class="n">unique</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
         <span class="n">producto</span> <span class="o">=</span> <span class="n">CharField</span><span class="p">()</span>
-        <span class="n">cantidad</span> <span class="o">=</span> <span class="n">CharField</span><span class="p">()</span>
+        <span class="n">cantidad</span> <span class="o">=</span> <span class="n">IntegerField</span><span class="p">()</span>
 
-        <span class="c1"># La clase Meta se utiliza para proporcionar metadatos sobre el modelo</span>
         <span class="k">class</span> <span class="nc">Meta</span><span class="p">:</span>
+<span class="w">            </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">            La clase Meta se utiliza para proporcionar metadatos sobre el modelo</span>
+<span class="sd">            &quot;&quot;&quot;</span>
+
             <span class="c1"># Indicamos a peewee que esta tabla está asociada con la base de datos db</span>
             <span class="n">database</span> <span class="o">=</span> <span class="n">db</span></div>
 
 
-    <span class="c1"># Se establece una conexión con la base de datos</span>
+    <span class="c1"># Se establece una conexión y se crea las tabla con la base de datos</span>
     <span class="n">db</span><span class="o">.</span><span class="n">connect</span><span class="p">()</span>
-    <span class="c1"># Crea las tablas en la base de datos.</span>
     <span class="n">db</span><span class="o">.</span><span class="n">create_tables</span><span class="p">([</span><span class="n">Table</span><span class="p">])</span>
+
 <span class="c1"># Se manejan excepciones para diferentes tipos de errores</span>
-<span class="k">except</span> <span class="ne">FileNotFoundError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
-    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Error: No se encontró el archivo: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="k">except</span> <span class="ne">FileNotFoundError</span> <span class="k">as</span> <span class="n">a</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Error: No se encontró el archivo: </span><span class="si">{</span><span class="n">a</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
     <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Error inesperado: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 <span class="k">else</span><span class="p">:</span>

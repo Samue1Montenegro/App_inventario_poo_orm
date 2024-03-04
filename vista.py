@@ -34,13 +34,11 @@ from tkinter import Scrollbar
 # Se importa la clase Button para crear botones en una interfaz.
 from tkinter import Button
 
+# Se importa la clase webview para visualizar archivos
 import webview
 
 # Se importa desde el modulo notificaciones la clase Notificacion
 from notificaciones import Notificacion
-
-# Se crea el objeto notificar instanciando la clase importada
-notificar = Notificacion
 
 # Se impora desde el modulo documentacion_html la clase ServicioHtml
 from documentacion_html import DocumentHtml
@@ -51,19 +49,22 @@ from modelo import Abmc
 
 from temas import Tema
 
+# Se crea el objeto notificar instanciando la clase importada
+notificar = Notificacion
 
 # ----------------------------------------------------------------------------------
 # ######################       VISTA                ########################
 # ----------------------------------------------------------------------------------
 
 
-# clase que contiene la estructura y vista de la interfaz
 class VistaApp:
     """Clase principal del modulo 'vista.py'"""
 
     def __init__(self, root):
         self.root = root
-        """Ventana principal"""
+        """
+        Ventana principal
+        """
         self.tree = ttk.Treeview(
             self.root, columns=("ID", "Producto", "Cantidad"), show="headings"
         )
@@ -74,6 +75,7 @@ class VistaApp:
         self.abmc_import = Abmc(self.tree)
         self.tema = Tema(self.root)
         self.archivo = DocumentHtml(self.root)
+
         # Titulo general de la aplicacion.
         self.titulo = Label(
             self.root,
@@ -172,7 +174,9 @@ class VistaApp:
         )
         self.separador.grid(row=6, pady=4)
 
-        """Boton para dar de alta un producto y sus configuraciones."""
+        """
+        Boton para dar de alta un producto y sus configuraciones.
+        """
         self.boton_alta = Button(
             self.root,
             text="Agregar",
@@ -183,7 +187,9 @@ class VistaApp:
         )
         self.boton_alta.grid(row=1, column=2)
 
-        """Boton para borrar un producto y sus configuraciones."""
+        """
+        Boton para borrar un producto y sus configuraciones.
+        """
         self.boton_borrar = Button(
             self.root,
             text="Borrar",
@@ -194,7 +200,10 @@ class VistaApp:
         )
         self.boton_borrar.grid(row=2, column=2, pady=(1, 0))
 
-        """Se crea el botón Modificar Producto para modificar el elemento seleccionado y las configuraciones del boton."""
+        """
+        Se crea el botón Modificar Producto para modificar el elemento seleccionado
+        y las configuraciones del boton.
+        """
         self.modificar_boton = Button(
             self.root,
             text="Modificar Producto",
@@ -204,7 +213,9 @@ class VistaApp:
         )
         self.modificar_boton.grid(row=3, column=2, pady=(1, 0))
 
-        """Boton para realizar una consulta sobre un producto y sus configuraciones."""
+        """
+        Boton para realizar una consulta sobre un producto y sus configuraciones.
+        """
         self.boton_consulta = Button(
             self.root,
             text="Consultar",
@@ -215,7 +226,10 @@ class VistaApp:
         )
         self.boton_consulta.grid(row=4, column=2, pady=(1, 0))
 
-        """Boton para poder actualizar el inventario luego de realizar una consulta y sus configuraciones."""
+        """
+        Boton para poder actualizar el inventario luego de realizar una consulta
+        y sus configuraciones.
+        """
         self.boton_actualizar = Button(
             self.root,
             text="Actualizar",
@@ -226,7 +240,9 @@ class VistaApp:
         )
         self.boton_actualizar.grid(row=5, column=2, pady=(1, 0))
 
-        """Botón para cambiar el tema de fondo"""
+        """
+        Botón para cambiar el tema de fondo
+        """
         self.boton_tema = Button(
             self.root,
             variable=self.root.configure(bg="#F2F3F4"),
@@ -237,7 +253,9 @@ class VistaApp:
         )
         self.boton_tema.grid(row=1, column=3, pady=(1, 0))
 
-        """Boton para abrir la documentacion de la app"""
+        """
+        Boton para abrir la documentacion de la app
+        """
         self.boton_doc = tk.Button(
             self.root,
             text="Documentacion",
@@ -246,112 +264,96 @@ class VistaApp:
         )
         self.boton_doc.grid(row=5, column=3, pady=(1, 0))
 
-    # Se crea una funcion para instanciar al metodo alta de la clase abmc
-    # y poder utilizarlo en el boton alta
     def alta(
         self,
     ):
-        """Este metodo llama al metodo 'alta' ubicado en el modulo modelo
-        y se llama desde el boton consulta.\n
+        """
+        Este metodo llama al metodo 'alta' ubicado en el modulo modelo
+        y se llama desde el boton 'boton_alta'.\n
         Si el producto se crea exitosamente se le notifica al usuario en pantalla.\n
-        En caso de ocurrir un error se le notifica al usuario en pantalla."""
+        En caso de ocurrir un error se le notifica al usuario en pantalla.
+        """
+
         try:
-
-            if (
-                self.abmc_import.alta(
-                    self.codigo_val,
-                    self.producto_val,
-                    self.cantidad_val,
-                )
-                is True
+            if self.abmc_import.alta(
+                self.codigo_val,
+                self.producto_val,
+                self.cantidad_val,
             ):
-                # Se notifica al usuario de la acción exitosa.
                 notificar.mostrar_notificacion("Producto agregado con éxito.")
-            else:
-                # Se notifica al usuario de un error en campos de entrada
-                notificar.mostrar_notificacion(
-                    "Elementos no válidos.!\n Para Producto: Solo letras incluida la ñ, números, caracteres /, _, ' y espacios permitidos.\n"
-                    "Para Cantidad: Solo números enteros y decimales separados con una coma.\n"
-                    "Para número ID/Código: Solo números enteros."
-                )
-        except:
-            # Se notifica al usuario de un error en campos de entrada
-            notificar.mostrar_notificacion(
-                "Elementos no válidos.!\n Para Producto: Solo letras incluida la ñ, números, caracteres /, _, ' y espacios permitidos.\n"
-                "Para Cantidad: Solo números enteros y decimales separados con una coma.\n"
-                "Para número ID/Código: Solo números enteros."
-            )
+        except Exception as a:
+            notificar.mostrar_notificacion(f"Error: {a}")
+            print(f"Error de excepcion en metodo alta de vista: {a}")
 
-    # Se crea una funcion para instanciar al metodo borrar de la clase abmc
-    # y poder utilizarlo en el boton borrar
     def borrar(
         self,
     ):
-        """Este metodo llama al metodo 'borrar' ubicado en el modulo modelo
-        y se llama desde el boton consulta.\n
+        """
+        Este metodo llama al metodo 'borrar' ubicado en el modulo modelo
+        y se llama desde el boton 'boton_orrar'.\n
         Si el producto se borra exitosamente, se notifica al usuario en pantalla.\n
-        En caso de ocurrir un error se le notifica al usuario en pantalla."""
+        En caso de ocurrir un error se le notifica al usuario en pantalla.
+        """
         try:
             self.abmc_import.borrar()
-        except Exception as b:
+        except Exception as c:
             notificar.mostrar_notificacion(
-                f"Ocurrió un error al eliminar el elemento.\n{str(b)}"
+                f"Ocurrió un error al eliminar el elemento.\n{str(c)}"
             )
         else:
-            # Se le notifica al usuario que la acción es exitosa.
+
             notificar.mostrar_notificacion("Elemento eliminado con éxito.")
 
-    # Se crea una funcion para instanciar al metodo modificar_seleccionado de la clase abmc
-    # y poder utilizarlo en el boton modificar
     def modificar(
         self,
     ):
-        """Este metodo llama al metodo 'modificar_seleccionado' ubicado en el modulo modelo
-        y se llama desde el boton consulta.\n
+        """
+        Este metodo llama al metodo 'modificar_seleccionado' ubicado en el modulo modelo
+        y se llama desde el boton 'boton_modificar'.\n
         Si se modifica el producto exitosamente, se notifica al usuario en pantalla\n
-        En caso de ocurrir un error se le notifica al usuario en pantalla."""
+        En caso de ocurrir un error se le notifica al usuario en pantalla.
+        """
         try:
             self.abmc_import.modificar_seleccionado()
-        except Exception as c:
+        except Exception as d:
             notificar.mostrar_notificacion(
-                f"Error en la seleccion de producto.\n{str(c)}"
+                f"Error en la seleccion de producto.\n{str(d)}"
             )
         else:
             notificar.mostrar_notificacion("Producto modificado con éxito!")
 
-    # Se crea una funcion para instanciar al metodo realizar_consulta de la clase abmc
-    # y poder utilizarlo en el boton alta
     def consulta(
         self,
     ):
-        """Este metodo llama al metodo 'realizar_consulta' ubicado en el modulo modelo
-        y se llama desde el boton consulta.\n
-        En caso de ocurrir un error se le notifica al usuario en pantalla."""
+        """
+        Este metodo llama al metodo 'realizar_consulta' ubicado en el modulo modelo
+        y se llama desde el boton 'boton_onsulta'.\n
+        En caso de ocurrir un error se le notifica al usuario en pantalla.
+        """
         try:
             self.abmc_import.realizar_consulta(self.consulta_val)
-        except Exception as d:
-            # Se le notifica al usuario en caso de error y se muestran detalles del error.
+        except Exception as f:
+
             notificar.mostrar_notificacion(
-                f"Hubo un error al realizar la consulta\n: {str(d)}"
+                f"Hubo un error al realizar la consulta\n: {str(f)}"
             )
 
-    # Se crea una funcion para instanciar al metodo actualizar_treeview de la clase abmc
-    # y poder utilizarlo en el boton alta
     def actualizar(
         self,
     ):
-        """Este metodo llama al metodo 'actualizar_treeview' ubicado en el modulo modelo
-        y se llama desde el boton actualizar.\n
-        En caso de ocurrir un error se le notifica al usuario en pantalla."""
+        """
+        Este metodo llama al metodo 'actualizar_treeview' ubicado en el modulo modelo
+        y se llama desde el boton 'boton_actualizar'.\n
+        En caso de ocurrir un error se le notifica al usuario en pantalla.
+        """
         try:
             self.abmc_import.actualizar_treeview(self.tree)
-        except Exception as e:
-            # Se le notifica al usuario en caso de error y se muestran detalles del error.
+        except Exception as g:
+
             notificar.mostrar_notificacion(
-                f"Hubo un error al actualizar el treeview\n: {str(e)}"
+                f"Hubo un error al actualizar el treeview\n: {str(g)}"
             )
 
-    # Metodo para crear e iniciar la ventana html
     def mostrar_html(self, archivo_html):
         """
         Metodo que muestra la ventana con el archivo html deseado:
@@ -367,8 +369,11 @@ class VistaApp:
         webview.start()
 
     def abrir_archivo_html(self):
-        """Este metodo obtiene la ruta del archivo html, utilizando esta ruta
-        para mostrar el contenido en la ventana que crea 'mostrar_html'
-        Se llamara este metodo desde el boton 'boton_doc'"""
+        """
+        Este metodo obtiene la ruta del archivo html, utilizando esta ruta
+        para mostrar el contenido en la ventana que crea 'mostrar_html'.\n
+        Se llamara este metodo desde el boton 'boton_doc'.\n
+        Desde la pantalla se podra visualizar haciendo click en boton 'Documentacion'
+        """
         archivo_html = self.archivo.obtener_archivo_html()
         self.mostrar_html(archivo_html)
