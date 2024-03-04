@@ -11,7 +11,7 @@
 - Como interfaz grafica se utiliza Tkinter.
 - Se utiliza el ORM Pewee para conectar a la base de datos Sqlite
 - Para documentar la aplicacion se utiliza Sphinx
-- Se ha realizado un ejecutable (Inventario.exe) para poder utilizar la app.    
+- Se ha realizado un ejecutable [Inventario.exe](https://github.com/Samue1Montenegro/App_inventario_poo_orm/blob/main/Inventario.exe) para poder utilizar la app.    
 
 
 ## Funcionalidades
